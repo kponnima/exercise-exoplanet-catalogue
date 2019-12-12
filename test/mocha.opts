@@ -1,0 +1,9 @@
+--no-config
+--recursive
+--reporter spec
+--require ./test/helper
+--bail
+--timeout 100000
+--colors
+--full-trace
+--exit
