@@ -1,0 +1,6 @@
+# exclude dot-files (.env, .git, etc..)
+.*
+
+# logs
+logs
+*.log

@@ -1,0 +1,45 @@
+# docker.yaml
+
+# Set the node version that needs to be installed
+ARG NODE_VERSION=11
+
+###
+# Declare the external dependencies.
+# Install build essential tools like python and node-gyp.
+# Copy the package.json, package-lock.json and .npmrc file created along with the installed default modules with -slim argument 
+###
+
+FROM node:${NODE_VERSION}-slim as dependencies
+WORKDIR /home/node/
+
+RUN apt-get update
+RUN apt-get install -y build-essential python
+RUN npm install --global npm node-gyp
+
+COPY package.json * package-lock.json *.npmrc ./
+
+# Set the NODE_ENV environment variable, since it is needed for node npm execution
+# Run the clean install using npm ci command
+ARG NODE_ENV=production
+ENV NODE_ENV ${NODE_ENV}
+RUN npm ci
+
+###
+# Configure the application
+# Copy the installed node modules into the working directory
+# Set the execution environment and default port to run the application [3000]
+###
+
+FROM node:${NODE_VERSION}-slim
+WORKDIR /home/node
+
+COPY --from=dependencies /home/node/node_modules node_modules
+COPY . .
+
+ENV PATH="$PATH:/home/node/node_modules/.bin"
+ENV NODE_ENV production
+ENV PORT 3000
+
+EXPOSE 3000
+
+CMD ["node", "."]

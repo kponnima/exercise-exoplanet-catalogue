@@ -1,0 +1,34 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "Program that downloads a catalog of exoplanet data and displays required information",
+  "main": "app.js",
+  "scripts": {
+    "pretest": "npm install",
+    "test": "./node_modules/.bin/mocha -r \"test/helper.js\" \"test/**/*_test.js\"",
+    "prestart": "npm install",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kponnima/exercise-exoplanet-catalogue.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "kushalappa p poonacha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kponnima/exercise-exoplanet-catalogue/issues"
+  },
+  "homepage": "https://github.com/kponnima/exercise-exoplanet-catalogue#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.1",
+    "sinon": "^7.4.2",
+    "sinon-chai": "^3.3.0"
+  },
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}
